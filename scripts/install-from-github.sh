@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO_RAW_BASE="${REPO_RAW_BASE:-https://raw.githubusercontent.com/CyPack/kimi-claude-code-optimization/main/scripts}"
+REPO_RAW_BASE="${REPO_RAW_BASE:-https://raw.githubusercontent.com/CyPack/claude-code-optimization-for-all-providers/main/scripts}"
 INSTALL_DIR="${INSTALL_DIR:-$HOME/.local/bin}"
 TIMESTAMP="$(date +%Y%m%d-%H%M%S)"
 

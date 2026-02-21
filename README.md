@@ -1,4 +1,4 @@
-# Kimi Claude Code Optimization
+# Claude Code Optimization for All Providers
 
 <p align="center">
   <strong>Human + Agent Friendly Provider Switching for Claude Code</strong><br/>
@@ -24,11 +24,11 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/CyPack/kimi-claude-code-optimization/blob/main/docs/INSTALLATION.md">Install Guide</a>
+  <a href="https://github.com/CyPack/claude-code-optimization-for-all-providers/blob/main/docs/INSTALLATION.md">Install Guide</a>
   ·
-  <a href="https://github.com/CyPack/kimi-claude-code-optimization/blob/main/docs/PROFILE_SWITCHING.md">Switch Guide</a>
+  <a href="https://github.com/CyPack/claude-code-optimization-for-all-providers/blob/main/docs/PROFILE_SWITCHING.md">Switch Guide</a>
   ·
-  <a href="https://github.com/CyPack/kimi-claude-code-optimization/blob/main/AGENTS.md">Agent Rules</a>
+  <a href="https://github.com/CyPack/claude-code-optimization-for-all-providers/blob/main/AGENTS.md">Agent Rules</a>
 </p>
 
 ## Why This Repo
@@ -49,7 +49,7 @@ bash scripts/install-switch.sh
 One-command remote install:
 
 ```bash
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/CyPack/kimi-claude-code-optimization/main/scripts/install-from-github.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/CyPack/claude-code-optimization-for-all-providers/main/scripts/install-from-github.sh)"
 ```
 
 ## Quick Use

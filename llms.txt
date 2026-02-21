@@ -1,4 +1,4 @@
-# Kimi Claude Code Optimization - LLM Index
+# Claude Code Optimization for All Providers - LLM Index
 
 Summary:
 Public, sanitized operational handbook for running Kimi/Claude/MiniMax provider switching with Claude Code in MCP-heavy workflows.

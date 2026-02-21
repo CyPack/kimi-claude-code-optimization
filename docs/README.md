@@ -52,7 +52,7 @@ This folder records the Kimi setup, backups, and troubleshooting notes for your 
 - Script: `$HOME/.local/bin/cc-provider` (repo source: `scripts/cc-provider`)
 - Install:
   - Local clone: `bash scripts/install-switch.sh`
-  - Remote one-command: `bash -c "$(curl -fsSL https://raw.githubusercontent.com/CyPack/kimi-claude-code-optimization/main/scripts/install-from-github.sh)"`
+  - Remote one-command: `bash -c "$(curl -fsSL https://raw.githubusercontent.com/CyPack/claude-code-optimization-for-all-providers/main/scripts/install-from-github.sh)"`
   - Full guide: `docs/INSTALLATION.md`
 - Commands:
   - `cc-provider status`

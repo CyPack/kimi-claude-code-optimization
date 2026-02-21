@@ -27,13 +27,13 @@ Installed commands:
 With curl:
 
 ```bash
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/CyPack/kimi-claude-code-optimization/main/scripts/install-from-github.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/CyPack/claude-code-optimization-for-all-providers/main/scripts/install-from-github.sh)"
 ```
 
 If curl is missing, use wget manually:
 
 ```bash
-wget -qO- https://raw.githubusercontent.com/CyPack/kimi-claude-code-optimization/main/scripts/install-from-github.sh | bash
+wget -qO- https://raw.githubusercontent.com/CyPack/claude-code-optimization-for-all-providers/main/scripts/install-from-github.sh | bash
 ```
 
 ## Optional: Custom Install Directory
@@ -45,7 +45,7 @@ INSTALL_DIR="$HOME/bin" bash scripts/install-switch.sh
 Or for remote installer:
 
 ```bash
-INSTALL_DIR="$HOME/bin" bash -c "$(curl -fsSL https://raw.githubusercontent.com/CyPack/kimi-claude-code-optimization/main/scripts/install-from-github.sh)"
+INSTALL_DIR="$HOME/bin" bash -c "$(curl -fsSL https://raw.githubusercontent.com/CyPack/claude-code-optimization-for-all-providers/main/scripts/install-from-github.sh)"
 ```
 
 ## First Validation

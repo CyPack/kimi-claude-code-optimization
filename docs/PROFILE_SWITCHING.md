@@ -22,7 +22,7 @@ This guide documents the safe toggle flow between Kimi, Claude, and MiniMax in C
 Install references:
 
 - Local clone: `bash scripts/install-switch.sh`
-- One-command remote: `bash -c "$(curl -fsSL https://raw.githubusercontent.com/CyPack/kimi-claude-code-optimization/main/scripts/install-from-github.sh)"`
+- One-command remote: `bash -c "$(curl -fsSL https://raw.githubusercontent.com/CyPack/claude-code-optimization-for-all-providers/main/scripts/install-from-github.sh)"`
 - Full install guide: `docs/INSTALLATION.md`
 
 ## Commands
