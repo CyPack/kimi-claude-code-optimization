@@ -1,0 +1,15 @@
+# Secrets
+*.pem
+*.key
+*.p12
+*.pfx
+.env
+.env.*
+secrets/
+credentials/
+**/.credentials.json
+
+# Local artifacts
+*.log
+*.tmp
+.DS_Store
