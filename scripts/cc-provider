@@ -27,6 +27,8 @@ ZAI_HAIKU_MODEL="${ZAI_HAIKU_MODEL:-GLM-4.5-Air}"
 ZAI_SONNET_MODEL="${ZAI_SONNET_MODEL:-GLM-4.7}"
 ZAI_OPUS_MODEL="${ZAI_OPUS_MODEL:-GLM-4.7}"
 ZAI_CLAUDE_MODEL="${ZAI_CLAUDE_MODEL:-sonnet}"
+GSD_TOOLS_BIN="${GSD_TOOLS_BIN:-$HOME/.claude/get-shit-done/bin/gsd-tools.cjs}"
+GSD_DEFAULTS_FILE="${GSD_DEFAULTS_FILE:-$HOME/.gsd/defaults.json}"
 
 print_usage() {
   cat <<'USAGE'
@@ -47,6 +49,92 @@ Aliases:
   cc-ollama
   cc-zai
 USAGE
+}
+
+is_valid_gsd_profile() {
+  local profile="$1"
+  [[ "$profile" == "quality" || "$profile" == "balanced" || "$profile" == "budget" ]]
+}
+
+gsd_profile_for_provider() {
+  local provider="$1"
+  case "$provider" in
+  claude)
+    printf '%s' "${GSD_PROFILE_CLAUDE:-balanced}"
+    ;;
+  kimi)
+    printf '%s' "${GSD_PROFILE_KIMI:-budget}"
+    ;;
+  minimax)
+    printf '%s' "${GSD_PROFILE_MINIMAX:-budget}"
+    ;;
+  zai)
+    printf '%s' "${GSD_PROFILE_ZAI:-budget}"
+    ;;
+  ollama)
+    printf '%s' "${GSD_PROFILE_OLLAMA:-budget}"
+    ;;
+  *)
+    printf '%s' "${GSD_PROFILE_DEFAULT:-balanced}"
+    ;;
+  esac
+}
+
+sync_gsd_profile() {
+  local provider="$1"
+  local target_profile
+  local project_dir
+  local project_config
+  local project_updated="no"
+  local project_reason="not_applicable"
+  local defaults_updated="no"
+  local defaults_reason="ok"
+
+  target_profile="$(gsd_profile_for_provider "$provider")"
+  if ! is_valid_gsd_profile "$target_profile"; then
+    echo "Warning: Invalid GSD profile '$target_profile' for provider '$provider'. Falling back to 'balanced'."
+    target_profile="balanced"
+  fi
+
+  project_dir="${CC_PROVIDER_GSD_CWD:-$PWD}"
+  project_config="$project_dir/.planning/config.json"
+
+  if [[ ! -f "$GSD_TOOLS_BIN" ]]; then
+    project_reason="gsd_tools_not_found"
+  elif [[ ! -d "$project_dir" ]]; then
+    project_reason="project_dir_not_found"
+  elif [[ -d "$project_dir/.planning" || -f "$project_config" ]]; then
+    if (cd "$project_dir" && node "$GSD_TOOLS_BIN" config-set model_profile "$target_profile" >/dev/null 2>&1); then
+      project_updated="yes"
+      project_reason="updated"
+    else
+      project_reason="config_set_failed"
+    fi
+  else
+    project_reason="planning_not_found"
+  fi
+
+  mkdir -p "$(dirname "$GSD_DEFAULTS_FILE")"
+  if [[ ! -f "$GSD_DEFAULTS_FILE" ]]; then
+    printf '{}\n' >"$GSD_DEFAULTS_FILE"
+  fi
+  if jq --arg profile "$target_profile" '.model_profile = $profile' "$GSD_DEFAULTS_FILE" >"$GSD_DEFAULTS_FILE.tmp"; then
+    mv "$GSD_DEFAULTS_FILE.tmp" "$GSD_DEFAULTS_FILE"
+    defaults_updated="yes"
+  else
+    rm -f "$GSD_DEFAULTS_FILE.tmp"
+    defaults_reason="defaults_update_failed"
+  fi
+
+  cat <<MSG
+GSD profile sync
+- provider: $provider
+- target model_profile: $target_profile
+- project config path: $project_config
+- project config updated: $project_updated ($project_reason)
+- defaults file: $GSD_DEFAULTS_FILE
+- defaults updated: $defaults_updated ($defaults_reason)
+MSG
 }
 
 ensure_json_file() {
@@ -301,6 +389,7 @@ switch_to_claude() {
   previous_base_url="$(active_base_url)"
 
   if [[ "$previous_provider" == "claude" ]]; then
+    sync_gsd_profile "claude"
     print_already_active_notice "claude" "$previous_model" "$previous_base_url"
     return 0
   fi
@@ -340,6 +429,8 @@ Notes:
 - If needed, run: claude /login
 MSG
 
+  sync_gsd_profile "claude"
+
   print_transition_notice "$previous_provider" "$previous_base_url"
 
   if [[ -n "${ANTHROPIC_API_KEY:-}" ]]; then
@@ -369,6 +460,7 @@ switch_to_kimi() {
   previous_base_url="$(active_base_url)"
 
   if [[ "$previous_provider" == "kimi" ]]; then
+    sync_gsd_profile "kimi"
     print_already_active_notice "kimi" "$previous_model" "$previous_base_url"
     return 0
   fi
@@ -430,6 +522,8 @@ Notes:
 MSG
   fi
 
+  sync_gsd_profile "kimi"
+
   print_transition_notice "$previous_provider" "$previous_base_url"
 }
 
@@ -451,6 +545,7 @@ switch_to_minimax() {
   previous_base_url="$(active_base_url)"
 
   if [[ "$previous_provider" == "minimax" ]]; then
+    sync_gsd_profile "minimax"
     print_already_active_notice "minimax" "$previous_model" "$previous_base_url"
     return 0
   fi
@@ -519,6 +614,8 @@ Notes:
 MSG
   fi
 
+  sync_gsd_profile "minimax"
+
   print_transition_notice "$previous_provider" "$previous_base_url"
 }
 
@@ -540,6 +637,7 @@ switch_to_ollama() {
   previous_base_url="$(active_base_url)"
 
   if [[ "$previous_provider" == "ollama" ]]; then
+    sync_gsd_profile "ollama"
     print_already_active_notice "ollama" "$previous_model" "$previous_base_url"
     return 0
   fi
@@ -602,6 +700,8 @@ Notes:
 - Ensure Ollama is running and model is available (e.g. ollama pull $OLLAMA_MODEL).
 MSG
 
+  sync_gsd_profile "ollama"
+
   print_transition_notice "$previous_provider" "$previous_base_url"
 }
 
@@ -624,6 +724,7 @@ switch_to_zai() {
 
   if [[ "$previous_provider" == "zai" ]]; then
     if zai_profile_is_fresh; then
+      sync_gsd_profile "zai"
       print_already_active_notice "zai" "$previous_model" "$previous_base_url"
       return 0
     fi
@@ -698,6 +799,8 @@ Notes:
 - For GLM-5 (if your plan supports it), set ZAI_SONNET_MODEL=GLM-5 and/or ZAI_OPUS_MODEL=GLM-5 before switching.
 MSG
   fi
+
+  sync_gsd_profile "zai"
 
   print_transition_notice "$previous_provider" "$previous_base_url"
 }

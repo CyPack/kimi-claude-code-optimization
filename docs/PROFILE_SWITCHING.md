@@ -51,6 +51,31 @@ cc-provider ollama
     - previous API base URL
     - current API base URL
 
+## GSD Model Sync (Automatic)
+
+Every `cc-provider` switch also tries to sync GSD model profile:
+
+- `claude` -> `balanced`
+- `kimi` -> `budget`
+- `minimax` -> `budget`
+- `zai` -> `budget`
+- `ollama` -> `budget`
+
+Targets:
+
+- Project-level: `<cwd>/.planning/config.json` (only if `.planning` exists)
+- Global default: `$HOME/.gsd/defaults.json`
+
+Output includes a `GSD profile sync` block with update status.
+
+Optional overrides:
+
+- `GSD_PROFILE_CLAUDE`, `GSD_PROFILE_KIMI`, `GSD_PROFILE_MINIMAX`, `GSD_PROFILE_ZAI`, `GSD_PROFILE_OLLAMA`
+- `GSD_PROFILE_DEFAULT`
+- `CC_PROVIDER_GSD_CWD` (sync target project path override)
+- `GSD_DEFAULTS_FILE` (global defaults path override)
+- `GSD_TOOLS_BIN` (custom gsd-tools binary path)
+
 ## What Happens on Switch
 
 ### `cc-provider claude`

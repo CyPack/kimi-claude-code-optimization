@@ -122,6 +122,10 @@ cc-ollama
 - On real switch, it prints transition summary:
   - previous provider/API
   - current provider/API
+- Every switch also syncs GSD model profile:
+  - `claude` -> `balanced`
+  - `kimi|minimax|zai|ollama` -> `budget`
+  - updates project `.planning/config.json` (if present) and `~/.gsd/defaults.json`
 - Every switch creates rollback backup under:
   - `$HOME/.claude/backups/provider-switch-YYYYmmdd-HHMMSS-XXXXXX/`
 

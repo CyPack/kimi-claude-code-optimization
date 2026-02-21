@@ -110,6 +110,9 @@ Behavior guarantees:
   - Applies default auth token `ollama` (configurable via `OLLAMA_AUTH_TOKEN_DEFAULT`)
   - Keeps `ToolSearch` enabled
   - Restores saved Ollama URL/token from profile stash if available
+- Every provider switch also performs GSD model_profile sync:
+  - Project `.planning/config.json` (if present)
+  - Global `$HOME/.gsd/defaults.json`
 
 ## Stable Runtime Patterns
 

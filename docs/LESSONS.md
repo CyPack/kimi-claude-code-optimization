@@ -190,6 +190,17 @@ Date: 2026-02-21
   3. For MCP, verify concrete tool call line (example: `mcp__sequential-thinking__sequentialthinking`)
   4. Record both human-readable result and debug proof in action log
 
+## Lesson 19: Provider Switch Should Also Align GSD Model Profile
+
+- Symptom: Claude Code provider changed, but `/gsd:*` flows still behave with old planning model profile.
+- Cause: provider switch and `.planning/config.json` model_profile were managed separately.
+- Fix:
+  1. Run automatic GSD sync inside `cc-provider` on every switch (including no-op).
+  2. Map defaults:
+     - `claude -> balanced`
+     - `kimi|minimax|zai|ollama -> budget`
+  3. Update both project config (`<cwd>/.planning/config.json`) and global defaults (`~/.gsd/defaults.json`).
+
 ## Quick Health Commands
 
 ```bash

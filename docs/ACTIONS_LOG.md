@@ -131,6 +131,17 @@ Date: 2026-02-21
       - branch check
       - cleanup remove + branch delete
     - Final result: `ADD=ok`, `BRANCH=cc-zai-wt-smoke`, `CLEANUP=ok`
+45. Added automatic GSD profile sync to `cc-provider`:
+    - Provider switch now aligns GSD `model_profile` automatically
+    - Mapping defaults:
+      - `claude -> balanced`
+      - `kimi|minimax|zai|ollama -> budget`
+46. Added dual-target GSD sync behavior:
+    - Project target: `<cwd>/.planning/config.json` (when present)
+    - Global default target: `$HOME/.gsd/defaults.json`
+47. Added override controls for advanced usage:
+    - `CC_PROVIDER_GSD_CWD`, `GSD_DEFAULTS_FILE`, `GSD_TOOLS_BIN`
+    - `GSD_PROFILE_*` provider-specific profile overrides
 
 ## Important Notes
 

@@ -1,6 +1,6 @@
 {
   "name": "claude-code-optimization-for-opensource-providers",
-  "version": "1.9.1",
+  "version": "1.9.2",
   "updated_at": "2026-02-21",
   "purpose": "Sanitized operational knowledge base for Kimi + MiniMax + Ollama + Claude Code + MCP stability and troubleshooting.",
   "primary_model_target": "kimi-for-coding",

@@ -25,6 +25,7 @@ Key facts:
 - Verified mitigation: disable ToolSearch for this workflow
 - One-command profile switch: cc-provider (kimi/claude/minimax/zai/ollama/status)
 - Switch is idempotent and prints previous -> current provider/API summary
+- Switch also aligns GSD model_profile (project + global defaults)
 - One-command install available via install-from-github.sh (curl/wget)
 - README now includes logo-based visual onboarding (Claude/Kimi/MiniMax/z.ai/Ollama)
 - Autonomous orchestration rule enables commandless multi-agent spawn on complex tasks

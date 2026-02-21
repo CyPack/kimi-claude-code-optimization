@@ -1,5 +1,21 @@
 # Release Notes
 
+## v1.9.2 - 2026-02-21
+
+### Added
+
+- Automatic GSD profile sync inside `cc-provider` switches.
+- Provider to GSD mapping defaults:
+  - `claude` -> `balanced`
+  - `kimi|minimax|zai|ollama` -> `budget`
+
+### Changed
+
+- `cc-provider` now updates:
+  - project `.planning/config.json` (when available)
+  - global `$HOME/.gsd/defaults.json`
+- No-op switches also run GSD sync so project defaults stay aligned.
+
 ## v1.9.1 - 2026-02-21
 
 ### Fixed
